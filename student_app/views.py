@@ -1,8 +1,3 @@
-import datetime
-import json
-import os
-
-import requests
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage

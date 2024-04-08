@@ -14,11 +14,6 @@ venv/
 *.swp
 *.sql
 
-# Media files
-media/
-
-# Static files
-staticfiles/
 
 # Database
 *.sqlite3

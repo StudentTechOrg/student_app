@@ -1,0 +1,47 @@
+/.vs/
+# Byte-compiled / optimized Python files
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+.env
+
+# Django development artifacts
+*.log
+*.pot
+*.pyo
+*.swp
+*.sql
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Database
+*.sqlite3
+*.db
+*.db.sqlite3
+
+# Secret keys
+*.key
+
+# Ignore migration files if you're using South or Django Migrations
+# Also, exclude any migrations directory specific to your apps
+**/migrations/
+
+# Ignore any local development settings files
+local_settings.py
+
+# Ignore IDE/Editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Docker related files if you're using Docker
+.dockerignore
+docker-compose.yml
+Dockerfile

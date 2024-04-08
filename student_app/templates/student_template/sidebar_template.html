@@ -1,0 +1,46 @@
+{% load static %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+
+    <div class="sidebar">
+     
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+          <li class="nav-item">
+            {% url 'student_home' as student_home %}
+            <a href="{{ student_home }}" class="nav-link {% if request.path == student_home %} active {% endif %}">
+              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            {% url 'student_feedback' as student_feedback %}
+            <a href="{{ student_feedback }}" class="nav-link {% if request.path == student_feedback %} active {% endif %}">
+              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <p>
+                Feedback Message
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'student_all_notification' as student_all_notification %}
+            <a href="{{ student_all_notification }}" class="nav-link {% if request.path == student_all_notification %} active {% endif %}">
+              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <p>
+                Notifications
+              </p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+    </div>
+    
+  </aside>

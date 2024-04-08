@@ -61,9 +61,7 @@ def student_profile_save(request):
         password=request.POST.get("password")
         address=request.POST.get("address")
         profile_picture = request.FILES['profile_picture']
-        fs = FileSystemStorage()
-        filename = fs.save(profile_picture.name, profile_picture)
-        profile_picture_url = fs.url(filename)
+       
         try:
             customuser=CustomUser.objects.get(id=request.user.id)
             customuser.first_name=first_name
@@ -74,7 +72,7 @@ def student_profile_save(request):
 
             student=Students.objects.get(admin=customuser)
             student.address=address
-            student.profile_pic = profile_picture_url
+            student.profile_pic = profile_picture
             student.save()
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("student_profile"))

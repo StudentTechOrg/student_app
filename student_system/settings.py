@@ -119,16 +119,17 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL="student_app.CustomUser"
 AUTHENTICATION_BACKENDS=['student_app.EmailBackEnd.EmailBackEnd']
 
-EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
 
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIl_PORT=587
-# EMAIL_HOST_USER="GMAIL_EMAIL"
-# EMAIL_HOST_PASSWORD="GMAIL PASSWORD"
-# EMAIL_USE_TLS=True
-# DEFAULT_FROM_EMAIL="Student management System <GMAIl_EMAIL>"
-#
+EMAIL_HOST="smtp.gmail.com"
+EMAIl_PORT=587
+EMAIL_HOST_USER="mailsend564@gmail.com"
+EMAIL_HOST_PASSWORD="tgrnwjrenjamecos"
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL="Student System <GMAIl_EMAIL>"
+
 
 # STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 # import dj_database_url

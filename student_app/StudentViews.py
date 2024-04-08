@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import FileSystemStorage
 
 from student_app.models import Students, Courses, Subjects, CustomUser, \
      FeedBackStudent, NotificationStudent, SessionYearModel
@@ -59,6 +60,10 @@ def student_profile_save(request):
         last_name=request.POST.get("last_name")
         password=request.POST.get("password")
         address=request.POST.get("address")
+        profile_picture = request.FILES['profile_picture']
+        fs = FileSystemStorage()
+        filename = fs.save(profile_picture.name, profile_picture)
+        profile_picture_url = fs.url(filename)
         try:
             customuser=CustomUser.objects.get(id=request.user.id)
             customuser.first_name=first_name
@@ -69,6 +74,7 @@ def student_profile_save(request):
 
             student=Students.objects.get(admin=customuser)
             student.address=address
+            student.profile_pic = profile_picture_url
             student.save()
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("student_profile"))

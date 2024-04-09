@@ -12,24 +12,25 @@ from student_app.models import Students, Courses, Subjects, CustomUser, \
 
 
 def student_home(request):
-    student_obj=Students.objects.get(admin=request.user.id)
-    course=Courses.objects.get(id=student_obj.course_id.id)
+    student=Students.objects.get(admin=request.user.id)
+    course=Courses.objects.get(id=student.course_id.id)
     subjects=Subjects.objects.filter(course_id=course).count()
-
+  
 
     subject_name=[]
-    subject_data=Subjects.objects.filter(course_id=student_obj.course_id)
+    subject_data=Subjects.objects.filter(course_id=student.course_id)
     for subject in subject_data:
         subject_name.append(subject.subject_name)
 
-    return render(request,"student_template/student_home_template.html",{"subjects":subjects,"data_name":subject_name})
+    return render(request,"student_template/student_home_template.html",{"subjects":subjects,"data_name":subject_name,"student":student})
 
 
 
 def student_feedback(request):
     staff_id=Students.objects.get(admin=request.user.id)
     feedback_data=FeedBackStudent.objects.filter(student_id=staff_id)
-    return render(request,"student_template/student_feedback.html",{"feedback_data":feedback_data})
+    student=Students.objects.get(admin=request.user.id)
+    return render(request,"student_template/student_feedback.html",{"feedback_data":feedback_data,"student":student})
 
 def student_feedback_save(request):
     if request.method!="POST":
@@ -94,5 +95,5 @@ def student_fcmtoken_save(request):
 def student_all_notification(request):
     student=Students.objects.get(admin=request.user.id)
     notifications=NotificationStudent.objects.filter(student_id=student.id)
-    return render(request,"student_template/all_notification.html",{"notifications":notifications})
+    return render(request,"student_template/all_notification.html",{"notifications":notifications,"student":student})
 

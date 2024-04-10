@@ -1,0 +1,28 @@
+{% extends 'student_template/base_template.html' %}
+{% block title %}About University{% endblock %}
+
+{% block main_content %}
+<div style="background-color:#621b40">
+<nav aria-label="breadcrumb" style="padding: 0.25rem 0.5rem;">
+    <ol class="breadcrumb" style="background-color: transparent; margin: 0;padding: 0.25rem 1rem;">
+        <li class="breadcrumb-item"><a href="#about-us" class="text-white">About us</a></li>
+    </ol>
+</nav>
+
+<nav aria-label="breadcrumb" style="padding: 0.25rem 0.5rem;">
+    <ol class="breadcrumb" style="background-color: transparent; margin: 0;padding: 0.25rem 1rem;">
+        <li class="breadcrumb-item"><a href="#who-we-are" class="text-white">Who we are</a></li>
+        <li class="breadcrumb-item"><a href="#role-region" class="text-white">Our role in the region</a></li>
+        <li class="breadcrumb-item"><a href="#strategy" class="text-white">Strategy</a></li>
+        <li class="breadcrumb-item"><a href="#governance" class="text-white">Governance</a></li>
+        <li class="breadcrumb-item"><a href="#people" class="text-white">Our people</a></li>
+        <li class="breadcrumb-item"><a href="#values"class="text-white">Our values</a></li>
+        <li class="breadcrumb-item"><a href="#structure" class="text-white">University structure</a></li>
+    </ol>
+</nav>
+</div>
+<section id="about_content">
+    {% block about_content %}
+    {% endblock %}
+</section>
+{% endblock %}

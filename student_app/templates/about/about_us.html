@@ -1,0 +1,82 @@
+{% extends 'about/base.html' %}
+{% load static %}
+{% block title %}About Us - Sheffield Hallam University{% endblock %}
+
+{% block about_content %}
+<section class="about-us-section">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">About Us </h1>
+            <p style="padding: 0rem 0.5rem;">Sheffield Hallam University is one of the UK’s largest and most diverse universities: a community of around 32,000 students, 4,500 staff and 295,000 alumni around the globe.</p>
+            <p style="padding: 0rem 0.5rem;">Our mission is simple: we transform lives.</p>
+            <p style="padding: 0rem 0.5rem;">We are an award-winning university, recently receiving Gold in the Teaching Excellence Framework for outstanding support for student success and progression.</p>
+            <p style="padding: 0rem 0.5rem;">We provide people from all backgrounds with the opportunity to acquire the skills, knowledge and experience to succeed at whatever they choose to do.</p>
+            <p style="padding: 0rem 0.5rem;">As one of the UK’s largest and most progressive universities, our teaching, research and partnerships are characterised by a focus on real world impact - addressing the health, economic and social challenges facing society today.</p>
+            <p style="padding: 0rem 0.5rem;">We are ambitious for our university, our students, our colleagues, our partners, our city and our region. Our vision is to be the world's leading applied university; showing what a university genuinely focused on transforming lives can achieve.</p>
+        </div>
+    </div>
+</div>
+</section>
+<hr>
+<section class="our-story-section">
+    <section id="our_story">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="font-weight-bold">Our Story</h2>
+                    <p>Find out more about who we are, what we do, our place, our history, and the university's strategy.</p>
+                    <a href="#" class="text-white" >Discover more</a>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'dist/img/Campus-landscape.jpg' %}" alt="Campus landscape shot" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<hr>
+
+<section class="our-values">
+<div class="container">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our Values</h2>
+        <a href="#" style="padding: 0.25rem 0.5rem;text-decoration: underline;color:red;
+                            font-weight:bold" >Find out more</a>
+      </div>
+    <div class="row">
+   
+      <div class="col-md-4">
+        <div class="card">
+          <img src={% static 'dist/img/our-strategy.jpg' %} class="card-img-top" alt="Aerial view of the Heart of the Campus">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Our Strategy</h5>
+            <p class="card-text" style="text-decoration: underline;color:red;">Our Transforming Lives strategy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <img src={% static 'dist/img/our-sustainability.jpg' %} class="card-img-top" alt="Student asking for help from a help desk staff member">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Sustainability</h5>
+            <p class="card-text" style="text-decoration: underline;color:red;">Ensuring sound, environmentally sustainable, operational practice in all our activities</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <img src={% static 'dist/img/our-equality.jpg' %} class="card-img-top" alt="Student asking for help from a help desk staff member">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Equality, diversity and inclusion</h5>
+            <p class="card-text" style="text-decoration: underline;color:red;">We are committed to advancing equality of opportunity, experience and outcome</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

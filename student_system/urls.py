@@ -29,5 +29,8 @@ urlpatterns = [
     path('student_fcmtoken_save', StudentViews.student_fcmtoken_save, name="student_fcmtoken_save"),
     path('student_all_notification',StudentViews.student_all_notification,name="student_all_notification"),
     path('about_us',StudentViews.about_us,name="about_us"),
+    path('about_us/who_we_are',StudentViews.who_we_are,name="who_we_are"),
+    path('about_us/our_values',StudentViews.our_values,name="our_values"),
+    path('about_us/strategy',StudentViews.strategy,name="strategy"),
     path('testurl/',views.Testurl)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

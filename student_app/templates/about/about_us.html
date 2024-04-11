@@ -26,7 +26,8 @@
                 <div class="col-md-6">
                     <h2 class="font-weight-bold">Our Story</h2>
                     <p>Find out more about who we are, what we do, our place, our history, and the university's strategy.</p>
-                    <a href="#" class="text-white" >Discover more</a>
+                    {% url 'who_we_are' as who_we_are %}
+                    <a href={{who_we_are}} class="text-white" >Discover more</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{% static 'dist/img/Campus-landscape.jpg' %}" alt="Campus landscape shot" class="img-fluid">
@@ -42,7 +43,8 @@
 
     <div class="d-flex justify-content-between mb-3">
         <h2 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our Values</h2>
-        <a href="#" style="padding: 0.25rem 0.5rem;text-decoration: underline;color:red;
+        {% url 'our_values' as our_values%}
+        <a href={{our_values}} style="padding: 0.25rem 0.5rem;text-decoration: underline;color:red;
                             font-weight:bold" >Find out more</a>
       </div>
     <div class="row">

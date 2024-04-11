@@ -20,7 +20,7 @@
 
           <li class="nav-item">
             {% url 'about_us' as about_us %}
-            <a href="{{ about_us }}" class="nav-link {% if request.path == about_us %} active {% endif %}">
+            <a href="{{ about_us }}" class="nav-link {% if '/about_us' in request.path or request.path == '/about_us' %} active {% endif %}">
               {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
               <p>
                 About

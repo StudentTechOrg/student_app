@@ -1,0 +1,86 @@
+{% extends 'about/base.html' %}
+{% load static %}
+{% block title %}Our Values - Sheffield Hallam University{% endblock %}
+
+{% block about_content %}
+<section class="our-values-section">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our values </h1>
+            <p style="padding: 0rem 0.5rem;">We are a university that is ambitious for others. A place where people can be inspired to realise their potential and begin life-changing journeys. Where innovation is sparked by curiosity, and collaboration means working together to solve problems and challenge the status quo. An inclusive community that stands up for equality and speaks up for diversity. An open-minded place, where everyone can thrive and belong. This is what makes us Sheffield Hallam University.</p>
+            <br>
+            <p style="padding: 0rem 0.5rem;">Our values represent the beliefs, philosophies, and principles that we believe can transform lives. They provide a platform for everyone, from students and staff to colleagues and partners, to be the best they can be. </p>
+        </div>
+    </div>
+</div>
+</section>
+<hr>
+    <section id="Hallam-value">
+        <div class="container">
+            <div class="col-md-6">
+                <h2 class="font-weight-bold">Hallam values</h2>
+            </div>
+            <div class="row">
+            
+                <div class="col-md-4">
+                    <div class="card border-0">
+                        <img src={% static 'dist/img/collaboration.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Collaboration</h4>
+                            <p class="card-text">We nurture a supportive culture where working together is a part of everyday learning and problem-solving.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0">
+                        <img src={% static 'dist/img/ambition.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Ambition</h4>
+                            <p class="card-text">We believe that everyone can make an impact and our role is to encourage and inspire each individual to be the best they can be.                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="card border-0">
+                        <img src={% static 'dist/img/inclusion.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Inclusion</h4>
+                            <p class="card-text">We speak up for equality and diversity so that every single person can feel they belong in our community.                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="card border-0">
+                        <img src={% static 'dist/img/innovation.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Innovation</h4>
+                            <p class="card-text">We encourage curious minds and creative solutions which can bring positive change in real-world settings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0">
+                        <img src={% static 'dist/img/integrity.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Integrity</h4>
+                            <p class="card-text">We cultivate an environment of openness, 
+                                authenticity and compassion where everyone can thrive.</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+</section>
+<hr>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'student_template/base_template.html' %}
+{% block title %}About University{% endblock %}
+
+{% block main_content %}
+<div style="background-color:#621b40">
+<nav aria-label="breadcrumb" style="padding: 0rem 0.5rem;">
+    <ol class="breadcrumb" style="background-color: transparent; margin: 0;padding: 0rem 1rem;">
+        {% url 'about_us' as about_us %}
+        <li class="breadcrumb-item"><a href={{about_us}} class="text-white"
+            {% if '/about_us' in request.path or request.path == '/about_us' %} 
+            style="font-weight:bold;"{% endif %}>About us </a></li>
+    </ol>
+</nav>
+
+<nav aria-label="breadcrumb" style="padding: 0rem 0.5rem;">
+    <ol class="breadcrumb" style="background-color: transparent; margin: 0;padding: 0rem 1rem;">
+        {% url 'who_we_are' as who_we_are%}
+        <li class="breadcrumb-item"><a href={{who_we_are}} class="text-white"
+            style="{% if request.path == '/about_us/who_we_are' %}font-weight:bold;{% endif %}">Who we are</a></li>
+        {% url 'strategy' as strategy%}
+        <li class="breadcrumb-item"><a href={{strategy}} class="text-white"
+            style="{% if request.path == '/about_us/strategy' %}font-weight:bold;{% endif %}">Strategy</a></li>
+        {% url 'our_values' as our_values%}
+        <li class="breadcrumb-item"><a href={{our_values}} class="text-white"
+            style="{% if request.path == '/about_us/our_values' %}font-weight:bold;{% endif %}">Our values</a></li>
+    </ol>
+</nav>
+</div>
+<section id="about_content">
+    {% block about_content %}
+    {% endblock %}
+</section>
+{% endblock %} 

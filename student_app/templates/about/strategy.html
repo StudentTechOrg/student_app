@@ -1,0 +1,79 @@
+{% extends 'about/base.html' %}
+{% load static %}
+{% block title %}Strategy- Sheffield Hallam University{% endblock %}
+
+{% block about_content %}
+<section class="strategy-section p-2">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our strategy</h1>
+            <p style="padding: 0rem 0.5rem;">In 2017, we re-examined our mission, vision, values and plans against the background of significant changes in higher education. Across the University we asked ourselves, fundamental questions about our organisation, its impact and the way we work. From that our Transforming Lives strategy was created.</p>
+            <br>
+            <p style="padding: 0rem 0.5rem;">In 2020, with a global pandemic and a fundamental set of challenges and opportunities for universities, we started to look ahead at how we need to adapt to be ready for the future.  </p>
+            <br>
+            <p style="padding: 0rem 0.5rem;">Our Transforming Lives strategy is now driven by a new set of values and priorities which recognise the impact of the pandemic on Sheffield Hallam - and society at large. These set out our beliefs, philosophies and principles, alongside our objectives to succeed, and provide a clear direction for us to continue our journey to becoming the world’s leading applied university.  </p>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our mission</h2>
+            <p style="padding: 0rem 0.5rem;">We transform lives. We shape our students' futures, preparing them for whatever they choose to do, and create knowledge that provides practical solutions to real world challenges.  </p>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="font-weight-bold" style="padding: 0.25rem 0.5rem;">Our vision</h2>
+            <p style="padding: 0rem 0.5rem;">We will be the world's leading applied university, achieving outstanding outcomes for our students and society, showing the world what a university genuinely focused on transforming lives can achieve.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+
+    <section id="strategy-core-activities p-2">
+        <div class="container">
+            <div class="col-md-6">
+                <h2 class="font-weight-bold">Our strategy is delivered through <br>three core activities
+                </h2>
+            </div>
+            <div class="row">
+            
+                <div class="col-md-4">
+                    <div class="card border-0" style="height:320px">
+                        <img src={% static 'dist/img/research-and-innovation.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Research and innovation</h4>
+                            <p class="card-text">Our research and our industry partnerships provide innovative, practical solutions to real challenges.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0" style="height:320px">
+                        <img src={% static 'dist/img/Teaching-and-learning.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Teaching and learning</h4>
+                            <p class="card-text"> Our students are confident, creative, resilient and responsible - prepared for whatever they decide to do.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="card border-0" style="height:320px">
+                        <img src={% static 'dist/img/Commitment-to-place.jpg' %} class="card-img-top" alt="Image">
+                        <div class="card-body p-2">
+                            <h4 class="card-title font-weight-bold">Commitment to place</h4>
+                            <p class="card-text">We are a beacon for what a university can do for and with its community.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</section>
+<hr>
+
+
+
+
+{% endblock %}

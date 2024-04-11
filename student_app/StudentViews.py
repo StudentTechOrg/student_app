@@ -97,3 +97,20 @@ def student_all_notification(request):
     notifications=NotificationStudent.objects.filter(student_id=student.id)
     return render(request,"student_template/all_notification.html",{"notifications":notifications,"student":student})
 
+ 
+
+   
+def about_us(request):
+    return render(request, 'about/about_us.html')
+
+
+def who_we_are(request):
+    return render (request,'about/who_we_are.html')
+
+
+def our_values(request):
+    return render (request,'about/our_values.html')
+
+
+def strategy(request):
+    return render (request,'about/strategy.html')

@@ -114,3 +114,8 @@ def our_values(request):
 
 def strategy(request):
     return render (request,'about/strategy.html')
+
+def contact_us(request):
+    return render (request,'contact/contact_us.html')
+
+

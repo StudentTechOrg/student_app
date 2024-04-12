@@ -32,5 +32,6 @@ urlpatterns = [
     path('about_us/who_we_are',StudentViews.who_we_are,name="who_we_are"),
     path('about_us/our_values',StudentViews.our_values,name="our_values"),
     path('about_us/strategy',StudentViews.strategy,name="strategy"),
+    path('contact_us',StudentViews.contact_us,name="contact_us"),
     path('testurl/',views.Testurl)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

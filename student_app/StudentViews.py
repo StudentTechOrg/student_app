@@ -5,10 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.files.storage import FileSystemStorage
+from .forms import ContactForm 
+
+
 
 from student_app.models import Students, Courses, Subjects, CustomUser, \
-     FeedBackStudent, NotificationStudent, SessionYearModel
+     FeedBackStudent, NotificationStudent, SessionYearModel,ContactMessage
 
 
 def student_home(request):
@@ -80,6 +82,29 @@ def student_profile_save(request):
         except:
             messages.error(request, "Failed to Update Profile")
             return HttpResponseRedirect(reverse("student_profile"))
+        
+def contact_us_submit(request):
+    if request.method != "POST":
+        return HttpResponseRedirect(reverse("contact_us"))
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            student = CustomUser.objects.get(id=request.user.id)
+      
+            contact_entry = ContactMessage.objects.create(name=name, email=email, subject=subject, message=message,  student_id= student.id)
+            contact_entry.save()
+
+            messages.success(request, "Your message has been sent successfully!")
+            return HttpResponseRedirect(reverse("contact_us"))  
+        else:
+            messages.error(request, "Failed to send message. Please check your input.")
+            return HttpResponseRedirect(reverse("contact_us"))  
+
+
 
 @csrf_exempt
 def student_fcmtoken_save(request):

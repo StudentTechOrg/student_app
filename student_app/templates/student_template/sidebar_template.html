@@ -11,7 +11,7 @@
           <li class="nav-item">
             {% url 'student_home' as student_home %}
             <a href="{{ student_home }}" class="nav-link {% if request.path == student_home %} active {% endif %}">
-              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <i class="nav-icon fas fa-home"></i>
               <p>
                 Home
               </p>
@@ -21,7 +21,7 @@
           <li class="nav-item">
             {% url 'about_us' as about_us %}
             <a href="{{ about_us }}" class="nav-link {% if '/about_us' in request.path or request.path == '/about_us' %} active {% endif %}">
-              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <i class="nav-icon fas fa-info-circle"></i>
               <p>
                 About
               </p>
@@ -32,7 +32,7 @@
           <li class="nav-item">
             {% url 'contact_us' as contact_us %}
             <a href="{{ contact_us }}" class="nav-link {% if '/contact_us' in request.path or request.path == '/contact_us' %} active {% endif %}">
-              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <i class="nav-icon fas fa-address-book"></i>
               <p>
                 Contact
               </p>
@@ -42,7 +42,7 @@
           <li class="nav-item">
             {% url 'student_feedback' as student_feedback %}
             <a href="{{ student_feedback }}" class="nav-link {% if request.path == student_feedback %} active {% endif %}">
-              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <i class="nav-icon fas fa-comment-alt"></i>
               <p>
                 Feedback Message
               </p>
@@ -52,7 +52,7 @@
           <li class="nav-item">
             {% url 'student_all_notification' as student_all_notification %}
             <a href="{{ student_all_notification }}" class="nav-link {% if request.path == student_all_notification %} active {% endif %}">
-              {% comment %} <i class="nav-icon fas fa-th"></i> {% endcomment %}
+              <i class="nav-icon fas fa-bell"></i>
               <p>
                 Notifications
               </p>

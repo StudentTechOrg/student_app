@@ -126,21 +126,26 @@ def student_all_notification(request):
 
    
 def about_us(request):
-    return render(request, 'about/about_us.html')
+    student=Students.objects.get(admin=request.user.id)
+    return render(request, 'about/about_us.html',{"student":student})
 
 
 def who_we_are(request):
-    return render (request,'about/who_we_are.html')
+    student=Students.objects.get(admin=request.user.id)
+    return render (request,'about/who_we_are.html',{"student":student})
 
 
 def our_values(request):
-    return render (request,'about/our_values.html')
+    student=Students.objects.get(admin=request.user.id)
+    return render (request,'about/our_values.html',{"student":student})
 
 
 def strategy(request):
-    return render (request,'about/strategy.html')
+    student=Students.objects.get(admin=request.user.id)
+    return render (request,'about/strategy.html',{"student":student})
 
 def contact_us(request):
-    return render (request,'contact/contact_us.html')
+    student=Students.objects.get(admin=request.user.id)
+    return render (request,'contact/contact_us.html',{"student":student})
 
 

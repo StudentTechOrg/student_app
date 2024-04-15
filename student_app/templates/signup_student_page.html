@@ -4,18 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Student Management System | Signup Student</title>
+  <title>Signup Student</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
-  <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{% static "plugins/icheck-bootstrap/icheck-bootstrap.min.css" %}">
-  <!-- Theme style -->
   <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
-  <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
@@ -24,7 +19,7 @@
   </div>
   <div class="card">
     <div class="card-body login-card-body">
-      <h4 class="mt-2 text-center mb-3"><b> Signup</b></h4>
+      <h4 class="mt-2 text-center mb-3"><b>Student Signup</b></h4>
       <form action="/do_signup_student" method="post" id="demo-form" enctype="multipart/form-data">
       {% csrf_token %}
 

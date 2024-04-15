@@ -54,8 +54,8 @@ def logout_user(request):
 def Testurl(request):
     return HttpResponse("Ok")
 
-# def signup_admin(request):
-#     return render(request,"signup_admin_page.html")
+def signup_admin(request):
+    return render(request,"signup_admin_page.html")
 
 def signup_student(request):
     courses=Courses.objects.all()

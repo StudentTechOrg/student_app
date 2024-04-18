@@ -39,6 +39,26 @@
           </li>
 
           <li class="nav-item">
+            {% url 'add_course' as add_course %}
+          <a href="{% url 'add_course' %}" class="nav-link {% if request.path == add_course %} active {% endif %} {% if request.path == add_course %} active {% endif %}">
+            <i class="nav-icon fas fa-user-cog"></i>
+            <p>
+              Add Course
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          {% url 'add_module' as add_module %}
+        <a href="{% url 'add_module' %}" class="nav-link {% if request.path == add_module %} active {% endif %} {% if request.path == add_module %} active {% endif %}">
+          <i class="nav-icon fas fa-user-cog"></i>
+          <p>
+            Add Module
+          </p>
+        </a>
+      </li>
+
+          <li class="nav-item">
             {% url 'student_enquiries' as student_enquiries %}
           <a href="{% url 'student_enquiries' %}" class="nav-link {% if request.path == student_enquiries %} active {% endif %}">
             <i class="nav-icon fas fa-question-circle"></i>

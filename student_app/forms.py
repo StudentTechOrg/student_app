@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ChoiceField
 
-from student_app.models import Courses, SessionYearModel, Subjects, Students
+from student_app.models import Courses, SessionYearModel, Subjects, Students,Module
 
 class ChoiceNoValidation(ChoiceField):
     def validate(self, value):
@@ -90,3 +90,27 @@ class ContactForm(forms.Form):
     subject = forms.CharField(max_length=200)
     message = forms.CharField(widget=forms.Textarea)
 
+class CourseForm(forms.Form):
+    course_name=forms.CharField(label="Course Name",max_length=100,widget=forms.TextInput(attrs={"class":"form-control"}))
+
+class ModuleForm(forms.Form):
+    try:
+        courses = Courses.objects.all()
+        course_list = [(course.id, course.course_name) for course in courses]
+    except Exception as e:
+        course_list = []
+
+    availability_choices = [
+        ("open", "Open"),
+        ("close", "Close"),
+    ]
+
+    course = forms.ChoiceField(label="Course", choices=course_list, widget=forms.Select(attrs={"class":"form-control"}))
+    name = forms.CharField(label="Module Name", max_length=100, widget=forms.TextInput(attrs={"class":"form-control"}))
+    code = forms.CharField(label="Code", max_length=50, widget=forms.TextInput(attrs={"class": "form-control"}))
+    credit = forms.IntegerField(label="Credit", widget=forms.NumberInput(attrs={"class": "form-control"}))
+    category = forms.CharField(label="Category", max_length=200, widget=forms.TextInput(attrs={"class": "form-control"}))
+    description = forms.CharField(label="Description", widget=forms.Textarea(attrs={"class": "form-control"}))
+    availability = forms.ChoiceField(label="Availability", choices=availability_choices, widget=forms.Select(attrs={"class": "form-control"}))
+
+        

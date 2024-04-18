@@ -30,6 +30,16 @@
 
           
           <li class="nav-item">
+            {% url 'course_template' as course_template %}
+            <a href="{{ course_template }}" class="nav-link {% if '/course_template' in request.path or request.path == '/course_template' %} active {% endif %}">
+              <i class="nav-icon fas fa-address-book"></i>
+              <p>
+                Course
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
             {% url 'contact_us' as contact_us %}
             <a href="{{ contact_us }}" class="nav-link {% if '/contact_us' in request.path or request.path == '/contact_us' %} active {% endif %}">
               <i class="nav-icon fas fa-address-book"></i>

@@ -53,4 +53,9 @@ urlpatterns = [
     path('admin_send_notification_student', AdminViews.admin_send_notification_student,name="admin_send_notification_student"),
     path('send_student_notification', AdminViews.send_student_notification,name="send_student_notification"),
     path('student_enquiries', AdminViews.student_enquiries,name="student_enquiries"),
+    path('add_course', AdminViews.add_course, name='add_course'),
+    path('add_course_save', AdminViews.add_course_save,name="add_course_save"),
+    path('add_module', AdminViews.add_module, name='add_module'),
+    path('add_module_save', AdminViews.add_module_save,name="add_module_save"),
+    path('module_list', AdminViews.module_list, name='module_list'),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

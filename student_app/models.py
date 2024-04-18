@@ -38,6 +38,16 @@ class Subjects(models.Model):
     objects=models.Manager()
 
 
+class Module(models.Model):
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    id=models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=20)
+    credit = models.IntegerField()
+    category = models.CharField(max_length=50)
+    description = models.TextField()
+    availability = models.BooleanField(default=False)
+
 class Students(models.Model):
     id=models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)

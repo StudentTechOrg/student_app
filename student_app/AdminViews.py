@@ -5,14 +5,14 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from student_app.forms import AddStudentForm, EditStudentForm
+from student_app.forms import AddStudentForm, EditStudentForm,CourseForm,ModuleForm
 from student_app.models import CustomUser, Courses, Subjects, Students, SessionYearModel, \
     FeedBackStudent, ContactMessage, \
-    NotificationStudent\
+    NotificationStudent,Module\
     
 
 
@@ -239,4 +239,42 @@ def send_student_notification(request):
     print(data.text)
     return HttpResponse("True")
 
+def add_course(request):
+    form=CourseForm()
+    return render(request,"Admin_template/add_course_template.html",{"form":form})
 
+def add_course_save(request):
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course_name = form.cleaned_data['course_name']
+            new_course = Courses(course_name=course_name)
+            new_course.save()
+            messages.success(request, "Course added successfully!")
+            return HttpResponseRedirect(reverse("add_course"))
+        else:
+            messages.error(request, "Failed to add course. Please check your input.")
+    else:
+        form = CourseForm()
+    return render(request, 'Admin_template/add_course_template.html', {'form': form})
+        
+def add_module(request):
+    form=ModuleForm()
+    return render(request,"Admin_template/add_module_template.html",{"form":form})
+
+def add_module_save(request):
+    if request.method != "POST":
+        return render(request, 'Admin_template/add_module_template.html', {'form': ModuleForm()})
+    else:
+        form = ModuleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Module added successfully!")
+            return HttpResponseRedirect(reverse("module_list"))
+        else:
+            messages.error(request, "Failed to add module. Please check your input.")
+            return HttpResponseRedirect(reverse("module_list"), {'form': form})
+
+def module_list(request):
+    modules = Module.objects.all()
+    return render(request, 'Admin_template/module_list.html', {'modules': modules})

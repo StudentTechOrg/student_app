@@ -10,7 +10,7 @@ from .forms import ContactForm
 
 
 from student_app.models import Students, Courses, Subjects, CustomUser, \
-     FeedBackStudent, NotificationStudent, SessionYearModel,ContactMessage
+     FeedBackStudent, NotificationStudent, SessionYearModel,ContactMessage,Module
 
 
 def student_home(request):
@@ -148,4 +148,7 @@ def contact_us(request):
     student=Students.objects.get(admin=request.user.id)
     return render (request,'contact/contact_us.html',{"student":student})
 
-
+def course_modules(request, course_id):
+    course = Courses.objects.get(id=course_id)
+    modules = Module.objects.filter(course=course)
+    return render(request, 'course_modules.html', {'course': course, 'modules': modules})

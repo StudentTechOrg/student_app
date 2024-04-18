@@ -262,18 +262,35 @@ def add_module(request):
     form=ModuleForm()
     return render(request,"Admin_template/add_module_template.html",{"form":form})
 
+from .models import Courses, Module
+
 def add_module_save(request):
-    if request.method != "POST":
-        return render(request, 'Admin_template/add_module_template.html', {'form': ModuleForm()})
-    else:
+    if request.method == "POST":
         form = ModuleForm(request.POST)
         if form.is_valid():
-            form.save()
+            selected_course_id = form.cleaned_data['course']
+            selected_course = Courses.objects.get(id=selected_course_id)  # Fetch the Courses instance
+            name = form.cleaned_data['name']
+            code = form.cleaned_data['code']
+            credit = form.cleaned_data['credit']
+            category = form.cleaned_data['category']
+            description = form.cleaned_data['description']
+            availability = form.cleaned_data['availability']
+            
+            new_module = Module(course_id=selected_course.id, name=name, code=code, credit=credit, category=category, description=description, availability=availability)
+            new_module.save()
             messages.success(request, "Module added successfully!")
-            return HttpResponseRedirect(reverse("module_list"))
+            return HttpResponseRedirect(reverse("add_module"))
         else:
             messages.error(request, "Failed to add module. Please check your input.")
-            return HttpResponseRedirect(reverse("module_list"), {'form': form})
+            return render(request, 'Admin_template/add_module_template.html', {'form': form}) 
+    else:
+        return render(request, 'Admin_template/add_module_template.html', {'form': ModuleForm()})
+
+
+
+
+
 
 def module_list(request):
     modules = Module.objects.all()

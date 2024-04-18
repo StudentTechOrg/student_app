@@ -1,22 +1,24 @@
 {% extends 'Admin_template/base_template.html' %}
 {% block page_title %}
-Add Course
+Add Module
 {% endblock page_title %}
 {% block main_content %}
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Add Module</h3>
-                    </div>
-                    {% include 'Admin_template/form_template.html' with messages=messages form=form action_path=action_path button_text="Add Module" %}
-                </div>
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Module</h3>
+              </div>
+                {% url 'add_module_save' as action_path %}
+                {% include 'Admin_template/form_template.html' with messages=messages form=form action_path=action_path button_text="Add Module" %}
             </div>
-        </div>
-    </div>
-</section>
+
+          </div>
+          </div>
+      </div>
+    </section>
 {% endblock main_content %}
 {% block custom_js %}
 

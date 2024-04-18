@@ -94,23 +94,21 @@ class CourseForm(forms.Form):
     course_name=forms.CharField(label="Course Name",max_length=100,widget=forms.TextInput(attrs={"class":"form-control"}))
 
 class ModuleForm(forms.Form):
-    try:
-        courses = Courses.objects.all()
-        course_list = [(course.id, course.course_name) for course in courses]
-    except Exception as e:
-        course_list = []
+    courses = Courses.objects.all()
+    course_choices = [(course.id, course.course_name) for course in courses]
 
     availability_choices = [
-        ("open", "Open"),
-        ("close", "Close"),
+        (True, "Open"),
+        (False, "Close"),
     ]
 
-    course = forms.ChoiceField(label="Course", choices=course_list, widget=forms.Select(attrs={"class":"form-control"}))
+    course = forms.ChoiceField(label="Course", choices=course_choices, widget=forms.Select(attrs={"class":"form-control"}))
     name = forms.CharField(label="Module Name", max_length=100, widget=forms.TextInput(attrs={"class":"form-control"}))
     code = forms.CharField(label="Code", max_length=50, widget=forms.TextInput(attrs={"class": "form-control"}))
     credit = forms.IntegerField(label="Credit", widget=forms.NumberInput(attrs={"class": "form-control"}))
     category = forms.CharField(label="Category", max_length=200, widget=forms.TextInput(attrs={"class": "form-control"}))
     description = forms.CharField(label="Description", widget=forms.Textarea(attrs={"class": "form-control"}))
     availability = forms.ChoiceField(label="Availability", choices=availability_choices, widget=forms.Select(attrs={"class": "form-control"}))
+
 
         

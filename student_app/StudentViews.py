@@ -148,7 +148,9 @@ def contact_us(request):
     student=Students.objects.get(admin=request.user.id)
     return render (request,'contact/contact_us.html',{"student":student})
 
-def course_modules(request, course_id):
-    course = Courses.objects.get(id=course_id)
-    modules = Module.objects.filter(course=course)
-    return render(request, 'course_modules.html', {'course': course, 'modules': modules})
+def course_template(request):
+    course = Courses.objects.all()
+    modules = Module.objects.all()
+    return render(request, 'student_template/course_template.html', {'course': course, 'modules': modules})
+
+

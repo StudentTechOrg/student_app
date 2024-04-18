@@ -29,6 +29,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
  
   <link rel="stylesheet" href="{% static "dist/css/about.css" %}">
+  
     {% block custom_css %}{% endblock custom_css %}
 
     <style>
@@ -104,9 +105,8 @@
 <!-- overlayScrollbars -->
 <script src="{% static "plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" %}"></script>
 <script src="{% static "dist/js/adminlte.js" %}"></script>
-<script src="{% static "dist/js/pages/dashboard.js" %}"></script>
-<script src="{% static "dist/js/demo.js" %}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 {% block custom_js %}
 {% endblock custom_js %}
 

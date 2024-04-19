@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from student_app.forms import AddStudentForm, EditStudentForm,CourseForm,ModuleForm
-from student_app.models import CustomUser, Courses, Subjects, Students, SessionYearModel, \
+from student_app.models import CustomUser, Courses, Students, \
     FeedBackStudent, ContactMessage, \
     NotificationStudent,Module\
     
@@ -49,10 +49,6 @@ def add_student_save(request):
             try:
                 user=CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
                 user.students.address=address
-                course_obj=Courses.objects.get(id=course_id)
-                user.students.course_id=course_obj
-                session_year=SessionYearModel.object.get(id=session_year_id)
-                user.students.session_year_id=session_year
                 user.students.gender=sex
                 user.students.profile_pic=profile_pic_url
                 user.save()
@@ -102,8 +98,6 @@ def edit_student_save(request):
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             address = form.cleaned_data["address"]
-            session_year_id=form.cleaned_data["session_year_id"]
-            course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
             if request.FILES.get('profile_pic',False):
@@ -125,11 +119,7 @@ def edit_student_save(request):
 
                 student=Students.objects.get(admin=student_id)
                 student.address=address
-                session_year = SessionYearModel.object.get(id=session_year_id)
-                student.session_year_id = session_year
                 student.gender=sex
-                course=Courses.objects.get(id=course_id)
-                student.course_id=course
                 if profile_pic_url!=None:
                     student.profile_pic=profile_pic_url
                 student.save()
@@ -262,7 +252,6 @@ def add_module(request):
     form=ModuleForm()
     return render(request,"Admin_template/add_module_template.html",{"form":form})
 
-from .models import Courses, Module
 
 def add_module_save(request):
     if request.method == "POST":

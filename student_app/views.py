@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from student_app.EmailBackEnd import EmailBackEnd
-from student_app.models import CustomUser, Courses, SessionYearModel
+from student_app.models import CustomUser 
 from student_system import settings
 
 
@@ -58,9 +58,7 @@ def signup_admin(request):
     return render(request,"signup_admin_page.html")
 
 def signup_student(request):
-    courses=Courses.objects.all()
-    session_years=SessionYearModel.object.all()
-    return render(request,"signup_student_page.html",{"courses":courses,"session_years":session_years})
+    return render(request,"signup_student_page.html")
 
 
 

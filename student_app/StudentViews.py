@@ -9,22 +9,14 @@ from .forms import ContactForm
 
 
 
-from student_app.models import Students, Courses, Subjects, CustomUser, \
-     FeedBackStudent, NotificationStudent, SessionYearModel,ContactMessage,Module
+from student_app.models import Students, Courses, CustomUser, \
+     FeedBackStudent, NotificationStudent,ContactMessage,Module
 
 
 def student_home(request):
     student=Students.objects.get(admin=request.user.id)
-    course=Courses.objects.get(id=student.course_id.id)
-    subjects=Subjects.objects.filter(course_id=course).count()
-  
 
-    subject_name=[]
-    subject_data=Subjects.objects.filter(course_id=student.course_id)
-    for subject in subject_data:
-        subject_name.append(subject.subject_name)
-
-    return render(request,"student_template/student_home_template.html",{"subjects":subjects,"data_name":subject_name,"student":student})
+    return render(request,"student_template/student_home_template.html",{"student":student})
 
 
 

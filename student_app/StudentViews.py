@@ -48,32 +48,42 @@ def student_profile(request):
     return render(request,"student_template/student_profile.html",{"user":user,"student":student})
 
 def student_profile_save(request):
-    if request.method!="POST":
+    if request.method != "POST":
         return HttpResponseRedirect(reverse("student_profile"))
     else:
-        first_name=request.POST.get("first_name")
-        last_name=request.POST.get("last_name")
-        password=request.POST.get("password")
-        address=request.POST.get("address")
-        profile_picture = request.FILES['profile_picture']
-       
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        profile_picture = request.FILES.get('profile_picture')
+
+        # Perform validation
+        if not first_name or not last_name or not address:
+            messages.error(request, "Please fill in all required fields.")
+            return HttpResponseRedirect(reverse("student_profile"))
+
         try:
-            customuser=CustomUser.objects.get(id=request.user.id)
-            customuser.first_name=first_name
-            customuser.last_name=last_name
-            if password!=None and password!="":
+            customuser = CustomUser.objects.get(id=request.user.id)
+            customuser.first_name = first_name
+            customuser.last_name = last_name
+            if password:
                 customuser.set_password(password)
             customuser.save()
 
-            student=Students.objects.get(admin=customuser)
-            student.address=address
-            student.profile_pic = profile_picture
+            student = Students.objects.get(admin=customuser)
+            student.address = address
+            if profile_picture:
+                student.profile_pic = profile_picture
             student.save()
             messages.success(request, "Successfully Updated Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
-        except:
-            messages.error(request, "Failed to Update Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
+        except CustomUser.DoesNotExist:
+            messages.error(request, "User does not exist.")
+        except Students.DoesNotExist:
+            messages.error(request, "Student profile does not exist.")
+        except Exception as e:
+            messages.error(request, f"Failed to update profile: {str(e)}")
+
+        return HttpResponseRedirect(reverse("student_profile"))
         
 def contact_us_submit(request):
     if request.method != "POST":

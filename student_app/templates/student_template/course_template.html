@@ -18,13 +18,17 @@ Courses
             <li class="list-group-item">
               <span class="toggle-sublist mr-2" data-toggle="collapse" data-target="#sublist{{ course.id }}" aria-expanded="false" aria-controls="sublist{{ course.id }}">+</span>
               {{ course.course_name }}
+              {% if course.modules.exists %}
               <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
-                {% for module in modules %}
-                  {% if module.course_id == course.id %}
-                    <li>{{ module.name }}</li>
-                  {% endif %}
+                {% for module in course.modules.all %}
+                  <li>{{ module.name }}</li>
                 {% endfor %}
               </ul>
+              {% else %}
+              <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
+                <li>No modules available</li>
+              </ul>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>

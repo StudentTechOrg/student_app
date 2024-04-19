@@ -1,6 +1,9 @@
 {% extends 'student_template/base_template.html' %}
+{% load static %}
 {% block title %}About University{% endblock %}
-
+{% block custom_css %}
+<link rel="stylesheet" href="{% static "dist/css/about.css" %}">
+{% endblock %}
 {% block main_content %}
 <div style="background-color:#621b40">
 <nav aria-label="breadcrumb" style="padding: 0rem 0.5rem;">

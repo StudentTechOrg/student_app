@@ -1,4 +1,3 @@
-
 {% extends 'student_template/base_template.html' %}
 {% block page_title %}
 Courses
@@ -6,25 +5,33 @@ Courses
 {% block main_content %}
 
 <section class="content">
-<div class="container">
-    <h2>Courses List</h2>
-    <ul class="list-group">
-      {% for course in course %}
-      <li class="list-group-item">
-        <span class="toggle-sublist mr-2" data-toggle="collapse" data-target="#sublist{{ course.id }}" aria-expanded="false" aria-controls="sublist{{ course.id }}">+</span>
-        {{ course.course_name }}
-        <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
-          {% for module in modules %}
-            {% if module.course_id == course.id %}
-              <li>{{ module.name }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </li>
-      {% endfor %}
-    </ul>
-    
-    
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card card-primary mt-1">
+          <div class="card-header">
+            <h3 class="card-title">Courses List</h3>
+          </div>
+          <ul class="list-group">
+            {% for course in course %}
+            <li class="list-group-item">
+              <span class="toggle-sublist mr-2" data-toggle="collapse" data-target="#sublist{{ course.id }}" aria-expanded="false" aria-controls="sublist{{ course.id }}">+</span>
+              {{ course.course_name }}
+              <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
+                {% for module in modules %}
+                  {% if module.course_id == course.id %}
+                    <li>{{ module.name }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
-  {% endblock main_content %}
+{% endblock main_content %}

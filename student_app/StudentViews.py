@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -157,3 +157,9 @@ def course_template(request):
     return render(request, 'student_template/course_template.html', {'course': course, 'modules': modules,"student":student})
 
 
+def module_detail(request, module_id):
+    try:
+        module = Module.objects.get(pk=module_id)
+    except Module.DoesNotExist:
+        raise Http404("Module does not exist")
+    return render(request, 'student_template/module_detail.html', {'module': module})

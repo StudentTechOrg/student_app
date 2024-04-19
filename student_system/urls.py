@@ -36,6 +36,7 @@ urlpatterns = [
     path('contact_us',StudentViews.contact_us,name="contact_us"),
     path('contact_us_submit', StudentViews.contact_us_submit, name="contact_us_submit"),
     path('course_template',StudentViews.course_template,name="course_template"),
+    path('module/<int:module_id>/', StudentViews.module_detail, name='module_detail'),
 
 
     # Admin

@@ -16,19 +16,19 @@ Courses
           <ul class="list-group">
             {% for course in course %}
             <li class="list-group-item">
-              <span class="toggle-sublist mr-2" data-toggle="collapse" data-target="#sublist{{ course.id }}" aria-expanded="false" aria-controls="sublist{{ course.id }}">+</span>
+              <span class="toggle-sublist mr-2" data-toggle="collapse" data-target="#sublist{{ course.id }}" aria-expanded="false" aria-controls="sublist{{ course.id }}" style="cursor:pointer">+</span>
               {{ course.course_name }}
-              {% if course.modules.exists %}
               <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
-                {% for module in course.modules.all %}
-                  <li>{{ module.name }}</li>
+                {% for module in modules %}
+                    {% if module.course_id == course.id %}
+                        <li><a href="{% url 'module_detail' module.id %}">{{ module.name }}</a></li>
+                    {% endif %}
                 {% endfor %}
-              </ul>
-              {% else %}
-              <ul id="sublist{{ course.id }}" class="collapse list-unstyled ml-3">
-                <li>No modules available</li>
-              </ul>
-              {% endif %}
+                {% if forloop.last and not course.modules.exists %}
+                    <li>No modules available</li>
+                {% endif %}
+            </ul>
+            
             </li>
             {% endfor %}
           </ul>

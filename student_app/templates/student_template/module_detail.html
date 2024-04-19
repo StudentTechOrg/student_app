@@ -1,0 +1,67 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+Module Details
+{% endblock page_title %}
+{% block custom_css %}
+<style>
+.border-rounded {
+    border-radius: 15px; 
+}
+
+.card .row > div {
+    border-right: 1px solid #ccc;
+    padding-right: 15px;
+}
+
+.card .row > div:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+</style>
+{% endblock custom_css %}
+{% block main_content %}
+<div class="container bg-primary" style="min-height:300px">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-white p-5">
+                <h1 class="display-5">{{ module.name }}</h1>
+                <p>{{module.description}}</p>
+                <a href="#enroll" class="btn btn-success btn-lg">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="display:relative;top:-35px">
+    <div class="card p-4 border-rounded">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <strong>Code:</strong>
+                <p>{{ module.code }}</p>
+            </div>
+            <div class="col-md-3">
+                <strong>Credit:</strong>
+                <p>{{ module.credit }}</p>
+            </div>
+            <div class="col-md-3">
+                <strong>Category:</strong>
+                <p>{{ module.category }}</p>
+            </div>
+            <div class="col-md-3">
+                <strong>Availability:</strong>
+                {% if module.availability %}
+                    <p>Available</p>
+                {% else %}
+                    <p>Not available</p>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock main_content %}
+
+

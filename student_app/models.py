@@ -49,7 +49,10 @@ class Students(models.Model):
     fcm_token=models.TextField(default="")
     objects = models.Manager()
 
-
+class Registration(models.Model):
+    student = models.ForeignKey(Students, on_delete=models.CASCADE)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    registration_date = models.DateField()
 
 class FeedBackStudent(models.Model):
     id = models.AutoField(primary_key=True)

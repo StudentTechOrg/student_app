@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect,Http404
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactForm
@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 from student_app.models import Students, Courses, CustomUser, \
-     FeedBackStudent, NotificationStudent,ContactMessage,Module
+     FeedBackStudent, NotificationStudent,ContactMessage,Module,Registration
 
 
 def student_home(request):
@@ -184,8 +184,38 @@ def course_template(request):
 
 
 def module_detail(request, module_id):
+    module = Module.objects.get(id=module_id)
+    student = Students.objects.get(admin=request.user.id)
+    is_registered = Registration.objects.filter(student=student, module=module).exists()
+
+    context = {
+        'module': module,
+        'is_registered': is_registered
+    }
+    return render(request, 'student_template/module_detail.html', context)
+
+def register_module(request, module_id):
+    module = Module.objects.get(id=module_id)
+    student = Students.objects.get(admin=request.user.id)
+    if module.availability:
+        registration = Registration(student=student, module=module, registration_date=date.today())
+        registration.save()
+        messages.success(request, f"Successfully registered for {module.name}.")
+    else:
+        messages.error(request, f"{module.name} is not available for registration.")
+    
+    return redirect('module_detail', module_id=module_id)
+
+def unregister_module(request, module_id):
+    module = Module.objects.get(id=module_id)
+    student = Students.objects.get(admin=request.user.id)
+    
+    
     try:
-        module = Module.objects.get(pk=module_id)
-    except Module.DoesNotExist:
-        raise Http404("Module does not exist")
-    return render(request, 'student_template/module_detail.html', {'module': module})
+        registration=Registration.objects.get(student=student, module=module)
+        registration.delete()
+        messages.success(request, f"Successfully unregistered from {module.name}.")
+    except Registration.DoesNotExist:
+        messages.error(request, f"You are not registered for {module.name}.")
+       
+    return redirect('module_detail', module_id=module_id)

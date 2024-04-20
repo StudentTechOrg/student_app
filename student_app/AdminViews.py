@@ -17,8 +17,18 @@ from student_app.models import CustomUser, Courses, Students, \
 
 
 def admin_home(request):
+    total_students = Students.objects.all().count()
+    total_module = Module.objects.all().count()
+    total_course = Courses.objects.all().count()
 
-    return render(request,"Admin_template/home_content.html")
+    context = {
+        'page_title': "Admin Dashboard",
+        'total_students': total_students,
+        'total_course': total_course,
+        'total_module': total_module,
+
+    }
+    return render(request,"Admin_template/home_content.html", context)
 
 
 def add_student(request):

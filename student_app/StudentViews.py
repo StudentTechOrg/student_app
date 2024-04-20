@@ -5,8 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ContactForm 
-from datetime import date
+from .forms import ContactForm
+from datetime import datetime
+
+
 
 
 from student_app.models import Students, Courses, CustomUser, \
@@ -41,11 +43,28 @@ def student_feedback_save(request):
         except:
             messages.error(request, "Failed To Send Feedback")
             return HttpResponseRedirect(reverse("student_feedback"))
+        
+
 
 def student_profile(request):
-    user=CustomUser.objects.get(id=request.user.id)
-    student=Students.objects.get(admin=user)
-    return render(request,"student_template/student_profile.html",{"user":user,"student":student})
+    user = CustomUser.objects.get(id=request.user.id)
+    student = Students.objects.get(admin=user)
+    
+    COUNTRY_CITIES = {
+        "USA": ["New York", "Los Angeles", "Chicago", "Houston", "San Francisco"],
+        "UK": ["London", "Manchester", "Birmingham", "Glasgow", "Liverpool"],
+        "CAN": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"],
+        "AUS": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
+    }
+
+    context = {
+        "user": user,
+        "student": student,
+        "COUNTRY_CITIES": COUNTRY_CITIES,
+    }
+
+    return render(request, "student_template/student_profile.html", context)
+
 
 def student_profile_save(request):
     if request.method != "POST":
@@ -55,10 +74,12 @@ def student_profile_save(request):
         last_name = request.POST.get("last_name")
         password = request.POST.get("password")
         address = request.POST.get("address")
+        date_of_birth_str = request.POST.get("date_of_birth") 
+        country = request.POST.get("country")
+        city = request.POST.get("city")
         profile_picture = request.FILES.get('profile_picture')
 
-        # Perform validation
-        if not first_name or not last_name or not address:
+        if not first_name or not last_name or not address or not date_of_birth_str or not country or not city:
             messages.error(request, "Please fill in all required fields.")
             return HttpResponseRedirect(reverse("student_profile"))
 
@@ -70,20 +91,25 @@ def student_profile_save(request):
                 customuser.set_password(password)
             customuser.save()
 
-            student = Students.objects.get(admin=customuser)
+            student, created = Students.objects.get_or_create(admin=customuser)
             student.address = address
+            student.country = country
+            student.city = city
             if profile_picture:
                 student.profile_pic = profile_picture
+            
+            date_of_birth = datetime.strptime(date_of_birth_str, "%Y-%m-%d")
+            student.date_of_birth = date_of_birth
+
             student.save()
             messages.success(request, "Successfully Updated Profile")
         except CustomUser.DoesNotExist:
             messages.error(request, "User does not exist.")
-        except Students.DoesNotExist:
-            messages.error(request, "Student profile does not exist.")
         except Exception as e:
             messages.error(request, f"Failed to update profile: {str(e)}")
 
         return HttpResponseRedirect(reverse("student_profile"))
+
         
 def contact_us_submit(request):
     if request.method != "POST":

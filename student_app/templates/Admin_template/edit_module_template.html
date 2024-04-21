@@ -1,0 +1,23 @@
+{% extends 'Admin_template/base_template.html' %}
+{% load static %}
+{% block page_title %}Edit Module{% endblock page_title %}
+
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit Module</h3>
+                    </div>
+
+                    {% include "Admin_template/form_template.html" with messages=messages  form=form button_text="Edit Subject"%}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}

@@ -6,7 +6,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-
 from student_app.forms import AddStudentForm, EditStudentForm,CourseForm,ModuleForm
 from student_app.models import CustomUser, Courses, Students, \
     FeedBackStudent, ContactMessage, \
@@ -264,7 +263,7 @@ def manage_course(request):
     courses = Courses.objects.all()
     return render(request, 'Admin_template/manage_course.html', {'courses': courses})   
   
-from django.shortcuts import get_object_or_404
+
 
 def edit_course(request, course_id):
     course = get_object_or_404(Courses, id=course_id)
@@ -331,7 +330,57 @@ def add_module_save(request):
 
 
 
+def manage_module(request):
+    modules = Module.objects.all()
+    context = {
+        'modules': modules,
+    }
+    return render(request, "Admin_template/manage_module.html", context)
 
+def delete_module(request, subject_id):
+    module = get_object_or_404(Module, id=subject_id)
+    module.delete()
+    messages.success(request, "Module deleted successfully!")
+    return redirect(reverse('manage_module'))
+
+def edit_module(request, module_id):
+    module = get_object_or_404(Module, id=module_id)
+    
+    if request.method == 'POST':
+        form = ModuleForm(request.POST)
+        if form.is_valid():
+            module.name = form.cleaned_data['name']
+            module.code = form.cleaned_data['code']
+            module.credit = form.cleaned_data['credit']
+            module.category = form.cleaned_data['category']
+            module.description = form.cleaned_data['description']
+            module.availability = form.cleaned_data['availability']
+            try:
+                module.save()
+                messages.success(request, "Successfully Updated")
+            except:
+                messages.error(request, "Could Not Update")
+        else:
+            messages.error(request, "Form is not valid")
+    else:
+        form = ModuleForm(initial={
+            'course': module.course.id,
+            'name': module.name,
+            'code': module.code,
+            'credit': module.credit,
+            'category': module.category,
+            'description': module.description,
+            'availability': module.availability,
+        })
+
+    context = {
+        'form': form,
+        'module_id': module_id,
+    }
+    
+    return render(request, 'admin_template/edit_module_template.html', context)
+
+    
 
 
 def module_list(request):

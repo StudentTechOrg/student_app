@@ -68,6 +68,16 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        {% url 'manage_module' as manage_module %}
+        <a href="{{ manage_module }}" class="nav-link {% if '/manage_module' in request.path or request.path == '/manage_module' %} active {% endif %}">
+          <i class="nav-icon fas fa-user-cog"></i>
+          <p>
+            Manage Module
+          </p>
+        </a>
+      </li>
+
           <li class="nav-item">
             {% url 'student_enquiries' as student_enquiries %}
           <a href="{% url 'student_enquiries' %}" class="nav-link {% if request.path == student_enquiries %} active {% endif %}">

@@ -64,4 +64,7 @@ urlpatterns = [
     path("manage_course", AdminViews.manage_course, name='manage_course'),
     path("edit_course/<int:course_id>",AdminViews.edit_course, name='edit_course'),
     path("delete_course/<int:course_id>",AdminViews.delete_course, name='delete_course'),
+    path("manage_module", AdminViews.manage_module, name='manage_module'),
+    path("edit_module/<int:module_id>",AdminViews.edit_module, name='edit_module'),
+    path("delete_module/<int:subject_id>",AdminViews.delete_module, name='delete_module'),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

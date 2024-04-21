@@ -1,5 +1,5 @@
 import json
-
+import datetime
 import requests
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -36,40 +36,45 @@ def add_student(request):
     return render(request,"Admin_template/add_student_template.html",{"form":form})
 
 def add_student_save(request):
-    if request.method!="POST":
-        return HttpResponse("Method Not Allowed")
+    if request.method != "POST":
+        return HttpResponseRedirect(reverse("add_student"))
     else:
-        form=AddStudentForm(request.POST,request.FILES)
-        if form.is_valid():
-            first_name=form.cleaned_data["first_name"]
-            last_name=form.cleaned_data["last_name"]
-            username=form.cleaned_data["username"]
-            email=form.cleaned_data["email"]
-            password=form.cleaned_data["password"]
-            address=form.cleaned_data["address"]
-            session_year_id=form.cleaned_data["session_year_id"]
-            course_id=form.cleaned_data["course"]
-            sex=form.cleaned_data["sex"]
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        sex = request.POST.get("sex")
+        profile_pic = request.FILES.get('profile_pic')
+        date_of_birth_str = request.POST.get("date_of_birth") 
+        country = request.POST.get("country")
+        city = request.POST.get("city")
 
-            profile_pic=request.FILES['profile_pic']
-            fs=FileSystemStorage()
-            filename=fs.save(profile_pic.name,profile_pic)
-            profile_pic_url=fs.url(filename)
+        if not first_name or not last_name or not username or not email or not password or not address or not sex :
+            messages.error(request, "Please fill in all required fields.")
+            return HttpResponseRedirect(reverse("add_student"))
 
-            try:
-                user=CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
-                user.students.address=address
-                user.students.gender=sex
-                user.students.profile_pic=profile_pic_url
-                user.save()
-                messages.success(request,"Successfully Added Student")
-                return HttpResponseRedirect(reverse("add_student"))
-            except:
-                messages.error(request,"Failed to Add Student")
-                return HttpResponseRedirect(reverse("add_student"))
-        else:
-            form=AddStudentForm(request.POST)
-            return render(request, "Admin_template/add_student_template.html", {"form": form})
+        try:
+            user = CustomUser.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=3)
+            user.students.address = address
+            user.students.gender = sex
+            user.students.country = country
+            user.students.city = city
+            if profile_pic:
+                fs = FileSystemStorage()
+                filename = fs.save(profile_pic.name, profile_pic)
+                profile_pic_url = fs.url(filename)
+                user.students.profile_pic = profile_pic_url
+
+            user.save()
+            user.students.save()
+
+            messages.success(request, "Successfully Added Student")
+        except Exception as e:
+            messages.error(request, f"Failed to Add Student: {str(e)}")
+
+        return HttpResponseRedirect(reverse("add_student"))     
 
 
 
@@ -88,10 +93,8 @@ def edit_student(request,student_id):
     form.fields['last_name'].initial=student.admin.last_name
     form.fields['username'].initial=student.admin.username
     form.fields['address'].initial=student.address
-    form.fields['course'].initial=student.course_id.id
     form.fields['sex'].initial=student.gender
-    form.fields['session_year_id'].initial=student.session_year_id.id
-    return render(request,"Admin_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
+    return render(request,"Admin_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username,"student" :student})
 
 def edit_student_save(request):
     if request.method!="POST":

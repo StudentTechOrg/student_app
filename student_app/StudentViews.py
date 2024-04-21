@@ -17,8 +17,18 @@ from student_app.models import Students, Courses, CustomUser, \
 
 def student_home(request):
     student=Students.objects.get(admin=request.user.id)
+    total_course = Courses.objects.all().count()
+    total_module_enrolled = Registration.objects.filter(student=student).count()
+    total_notification_student = NotificationStudent.objects.filter(student_id=student).count()
+    context = {
+        'page_title': "Student Dashboard",
+        "student":student,
+        'total_course': total_course,
+        'total_module_enrolled': total_module_enrolled,
+        'total_notification_student':total_notification_student,
 
-    return render(request,"student_template/student_home_template.html",{"student":student})
+    }
+    return render(request,"student_template/student_home_template.html",context)
 
 
 

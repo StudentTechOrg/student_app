@@ -1,11 +1,9 @@
 import json
-import datetime
 import requests
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -260,7 +258,49 @@ def add_course_save(request):
     else:
         form = CourseForm()
     return render(request, 'Admin_template/add_course_template.html', {'form': form})
-        
+
+
+def manage_course(request):
+    courses = Courses.objects.all()
+    return render(request, 'Admin_template/manage_course.html', {'courses': courses})   
+  
+from django.shortcuts import get_object_or_404
+
+def edit_course(request, course_id):
+    course = get_object_or_404(Courses, id=course_id)
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course.course_name = form.cleaned_data['course_name']
+            try:
+                course.save()
+                messages.success(request, "Successfully Updated")
+            except:
+                messages.error(request, "Could Not Update")
+        else:
+            messages.error(request, "Form is not valid")
+    else:
+        form = CourseForm(initial={'name': course.course_name})
+
+    context = {
+        'form': form,
+        'course_id': course_id,
+    }
+    
+    return render(request, 'admin_template/edit_course_template.html', context)
+
+
+
+def delete_course(request, course_id):
+    course = get_object_or_404(Courses, id=course_id)
+    try:
+        course.delete()
+        messages.success(request, "Course deleted successfully!")
+    except Exception:
+        messages.error(
+            request, "Sorry, some students are assigned to this course already. Kindly change the affected student course and try again")
+    return redirect(reverse('manage_course'))
+
 def add_module(request):
     form=ModuleForm()
     return render(request,"Admin_template/add_module_template.html",{"form":form})

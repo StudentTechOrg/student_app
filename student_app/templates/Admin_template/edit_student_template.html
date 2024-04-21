@@ -23,4 +23,41 @@ Edit Student |  Username : {{ username }} | #ID : {{ id }}
     </section>
     
 {% endblock main_content %}
+{% block custom_js %}
+<script>
+    var COUNTRY_CITIES = {
+        "USA": ["New York", "Los Angeles", "Chicago", "Houston", "San Francisco"],
+        "UK": ["London", "Manchester", "Birmingham", "Glasgow", "Liverpool"],
+        "CAN": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"],
+        "AUS": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
+    };
+
+    function populateCities() {
+        var selectedCountry = document.getElementById("id_country").value;
+        var citySelect = document.getElementById("id_city");
+        citySelect.innerHTML = '<option value="">Select City</option>';
+        if (selectedCountry) {
+            var cities = COUNTRY_CITIES[selectedCountry];
+            cities.forEach(function(city) {
+                var option = document.createElement("option");
+                option.text = city;
+                option.value = city;
+                citySelect.add(option);
+            });
+        }
+    }
+
+    document.getElementById("id_country").addEventListener("change", populateCities);
+
+    var selectedCountryFromDatabase = "{{ student.country }}";
+    var selectedCityFromDatabase = "{{ student.city }}";
+
+    document.getElementById("id_country").value = selectedCountryFromDatabase;
+    populateCities();
+
+    if (selectedCityFromDatabase) {
+        document.getElementById("id_city").value = selectedCityFromDatabase;
+    }
+</script>
+{% endblock custom_js %}
 

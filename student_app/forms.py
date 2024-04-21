@@ -18,35 +18,24 @@ class AddStudentForm(forms.Form):
     username = forms.CharField(label="Username", max_length=50, widget=forms.TextInput(attrs={"class": "form-control", "autocomplete": "off"}))
     address = forms.CharField(label="Address", max_length=50, widget=forms.TextInput(attrs={"class": "form-control"}))
     profile_pic = forms.FileField(label="Profile Pic", max_length=50, widget=forms.FileInput(attrs={"class": "form-control"}))
-
     gender_choice = (
         ("Male", "Male"),
         ("Female", "Female")
     )
     sex = forms.ChoiceField(label="Sex", choices=gender_choice, widget=forms.Select(attrs={"class": "form-control"}))
+    
 
-    date_of_birth = forms.DateField(
-        label="Date of Birth",
-        widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}),
-        input_formats=['%m/%d/%Y']
-    )
     COUNTRY_CHOICES = [
-        ("USA", "United States"),
-        ("UK", "United Kingdom"),
+        ("", "Select Country"),
+        ("USA", "USA"),
+        ("UK", "UK"),
         ("CAN", "Canada"),
         ("AUS", "Australia"),
-        ("GER", "Germany"),
     ]
     country = forms.ChoiceField(label="Country", choices=COUNTRY_CHOICES, widget=forms.Select(attrs={"class": "form-control"}))
 
-    CITY_CHOICES = {
-        "USA": [("NYC", "New York City"), ("LA", "Los Angeles"), ("CHI", "Chicago")],
-        "UK": [("LON", "London"), ("MAN", "Manchester")],
-        "CAN": [("TOR", "Toronto"), ("VAN", "Vancouver")],
-        "AUS": [("SYD", "Sydney"), ("MEL", "Melbourne")],
-        "GER": [("BER", "Berlin"), ("HAM", "Hamburg")],
-    }
-    city = forms.ChoiceField(label="City", choices=[], widget=forms.Select(attrs={"class": "form-control"}))
+    city = forms.CharField(label="City", max_length=50, widget=forms.Select(attrs={"class": "form-control"}))
+ 
 
 
 class EditStudentForm(forms.Form):
@@ -64,28 +53,16 @@ class EditStudentForm(forms.Form):
 
     sex=forms.ChoiceField(label="Sex",choices=gender_choice,widget=forms.Select(attrs={"class":"form-control"}))
     profile_pic=forms.FileField(label="Profile Pic",max_length=50,widget=forms.FileInput(attrs={"class":"form-control"}),required=False)
-    date_of_birth = forms.DateField(
-        label="Date of Birth",
-        widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}),
-        input_formats=['%m/%d/%Y']
-    )
     COUNTRY_CHOICES = [
-        ("USA", "United States"),
-        ("UK", "United Kingdom"),
+        ("", "Select Country"),
+        ("USA", "USA"),
+        ("UK", "UK"),
         ("CAN", "Canada"),
         ("AUS", "Australia"),
-        ("GER", "Germany"),
     ]
     country = forms.ChoiceField(label="Country", choices=COUNTRY_CHOICES, widget=forms.Select(attrs={"class": "form-control"}))
-
-    CITY_CHOICES = {
-        "USA": [("NYC", "New York City"), ("LA", "Los Angeles"), ("CHI", "Chicago")],
-        "UK": [("LON", "London"), ("MAN", "Manchester")],
-        "CAN": [("TOR", "Toronto"), ("VAN", "Vancouver")],
-        "AUS": [("SYD", "Sydney"), ("MEL", "Melbourne")],
-        "GER": [("BER", "Berlin"), ("HAM", "Hamburg")],
-    }
-    city = forms.ChoiceField(label="City", choices=[], widget=forms.Select(attrs={"class": "form-control"}))
+    city = forms.CharField(label="City", max_length=50, widget=forms.Select(attrs={"class": "form-control"}))
+ 
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)

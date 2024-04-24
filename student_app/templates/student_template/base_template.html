@@ -42,7 +42,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {% if student.profile_pic%}
-              <img src="{{ student.profile_pic }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
+              <img src="{{ student.profile_pic.url }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
           {% else %}
               <img src="{% static "dist/img/default-150x150.png" %}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
           {% endif %}

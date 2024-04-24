@@ -19,29 +19,31 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# MEDIA_URL="/media/"
-# MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+MEDIA_URL="/media/"
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
-# STATIC_URL="/static/"
-# STATIC_ROOT=os.path.join(BASE_DIR,"static")
+STATIC_URL="/static/"
+STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
 
-DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
-STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
+# DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
+# STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
 
-AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
-STATIC_ROOT=os.path.join(BASE_DIR,"static")
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
+# STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media/'
+# MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>  Student Panel</title>
+  <title>Student Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -41,8 +41,8 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% if student.profile_pic %}
-              <img src="/media/{{ student.profile_pic }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
+          {% if student.profile_pic%}
+              <img src="{{ student.profile_pic.url }}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
           {% else %}
               <img src="{% static "dist/img/default-150x150.png" %}" class="img-circle elevation-2" alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
           {% endif %}

@@ -1,6 +1,9 @@
 
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,9 +24,24 @@ MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 STATIC_URL="/static/"
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
-# settings.py
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+# DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
+# STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
+
+# AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
+# STATIC_ROOT=os.path.join(BASE_DIR,"static")
+
+# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media/'
+# MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 
 INSTALLED_APPS = [
@@ -34,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'student_app',
+    'storages',
 ]
 
 MIDDLEWARE = [

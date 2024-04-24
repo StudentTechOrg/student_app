@@ -27,7 +27,7 @@ def doLogin(request):
             messages.error(request, "Please provide both email and password.")
             return HttpResponseRedirect("/")
         else:
-            user = EmailBackEnd.authenticate(request, username=email, password=password)
+            user = EmailBackEnd.authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
                 if user.user_type == "1":

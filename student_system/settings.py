@@ -1,7 +1,9 @@
 
 
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,8 +33,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
 STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
 
-AZURE_ACCOUNT_NAME = 'c2087665'
-AZURE_ACCOUNT_KEY = 'FXyZTY5wiUX3/Np/ugZuGJqwhrlAYMzjmmuJk3EHQs8KrGqp7RHmpB0h6XnXMMLRPKkRnMQyt5pp+AStWHutmA=='
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'

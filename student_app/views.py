@@ -23,7 +23,6 @@ def doLogin(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        # Check if email and password are provided
         if not email or not password:
             messages.error(request, "Please provide both email and password.")
             return HttpResponseRedirect("/")

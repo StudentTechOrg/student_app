@@ -15,10 +15,10 @@ venv/
 *.sql
 
 
-# # Database
-# *.sqlite3
-# *.db
-# *.db.sqlite3
+# Database
+*.sqlite3
+*.db
+*.db.sqlite3
 
 # Secret keys
 *.key

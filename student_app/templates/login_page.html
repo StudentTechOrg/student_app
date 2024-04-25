@@ -12,68 +12,48 @@
   <link rel="stylesheet" href="{% static "plugins/icheck-bootstrap/icheck-bootstrap.min.css" %}">
   <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'dist/css/login_signup_style.css' %}">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
 
-  <div class="card">
-    <div class="card-body login-card-body">
-      <h4 class="mt-2 text-center mb-3"><b> Login</b></h4>
-
+<div class="form-box">
+  <div class="login-container" id="login">
+      <div class="top">
+          <header>Login</header>
+      </div>
       <form action="/doLogin" method="post" id="demo-form">
-      {% csrf_token %}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
+        {% csrf_token %}
+          <div class="input-box">
+              <input type="text" class="input-field" placeholder="Email" name="email">
+              <i class="bx bx-user"></i>
           </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
+          <div class="input-box">
+              <input type="password" class="input-field" placeholder="Password" name="password">
+              <i class="bx bx-lock-alt"></i>
           </div>
-        </div>
-      
-        <div class="row">
-          <div class="col-12 text-center">
-            <a href="{% url 'password_reset' %}" style="font-size: 14px;">Forget Password?</a>
-         </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block mt-4" >Login</button>
+          <div class="input-box">
+              <input type="submit" class="submit" value="Sign In">
           </div>
-           
-            <div class="col-12 text-center">
-             <p style="font-size: 14px;" class="mt-2">Don't have an account <a href="{% url 'signup_student' %}"><b>Signup</b></a></p>
+          <div class="two-col" style="float:right">
+              <div class="two" >
+                  <label><a href="#">Forgot password?</a></label>
+              </div>
           </div>
-
-          
-        </div>
-        <div class="row">
-          {% if messages %}
-         <div class="col-12">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-            {% endif %}
-            {% if message.tags == 'success' %}
-            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          {% endif %}
-        </div>
       </form>
+      <div class="top">
+          <span>Don't have an account? <a href="{%url 'signup_student'%}">Sign Up</a></span>
+      </div>
 
-
-    </div>
+      {% if messages %}
+      <ul class="messages mt-4 ">
+          {% for message in messages %}
+              <li style="color:red;font-size:20px" class="text-center font-weight-bold">{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
   </div>
 </div>
-
 <!-- jQuery -->
 <script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
 <!-- Bootstrap 4 -->

@@ -12,84 +12,50 @@
   <link rel="stylesheet" href="{% static "plugins/icheck-bootstrap/icheck-bootstrap.min.css" %}">
   <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'dist/css/login_signup_style.css' %}">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-  </div>
-  <div class="card">
-    <div class="card-body login-card-body">
-      <h4 class="mt-2 text-center mb-3"><b>Student Signup</b></h4>
+
+<div class="form-box justify-content-center">
+  <div>
+  <div class="register-container" id="register">
+          <header>Sign Up</header>
+      </div>
       <form action="/do_signup_student" method="post" id="demo-form" enctype="multipart/form-data">
-      {% csrf_token %}
-
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="First Name" name="first_name">
-        <div class="input-group-append">
-          <div class="input-group-text">
-          </div>
-        </div>
-      </div>
-            <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Last name" name="last_name">
-        <div class="input-group-append">
-          <div class="input-group-text">
-          </div>
-        </div>
-      </div>
-
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Username" name="username">
-        <div class="input-group-append">
-          <div class="input-group-text">
-          </div>
-        </div>
-      </div>
-
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-      
+        {% csrf_token %}
          
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
+          <div class="two-forms">
+              <div class="input-box">
+                  <input type="text" name="first_name" class="input-field" placeholder="Firstname">
+                  <i class="bx bx-user"></i>
+              </div>
+              <div class="input-box">
+                  <input type="text" name="last_name" class="input-field" placeholder="Lastname">
+                  <i class="bx bx-user"></i>
+              </div>
           </div>
-        </div>
-         
-
-        <div class="row">
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" >Signup</button>
+          <div class="input-box">
+              <input type="text" name="username" class="input-field" placeholder="username">
+              <i class="bx bx-user"></i>
           </div>
-
-          <div class="col-12 text-center"> 
-            <p style="font-size: 14px;" class="mt-2">Already have an account! <a href="{% url 'show_login' %}"><b>Login</b></a></p>
-         </div>
-
-        </div>
-        <div class="row">
-          {% if messages %}
-         <div class="col-12">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-            {% endif %}
-            {% endfor %}
+          <div class="input-box">
+              <input type="text" name="email" class="input-field" placeholder="Email">
+              <i class="bx bx-envelope"></i>
           </div>
-          {% endif %}
-        </div>
+          <div class="input-box">
+              <input type="password" name="password" class="input-field" placeholder="Password">
+              <i class="bx bx-lock-alt"></i>
+          </div>
+          <div class="input-box">
+              <input type="submit" class="submit" value="Register">
+          </div>
       </form>
 
-    </div>
+   
+      <div class="top">
+          <span>Have an account? <a href="/">Login</a></span>
+      </div>
   </div>
 </div>
 

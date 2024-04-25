@@ -1,4 +1,4 @@
-import datetime
+
 
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect,Http404
@@ -6,7 +6,7 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactForm
-from datetime import datetime
+from datetime import date
 from student_system.azure_storage import AzureMediaStorage
 
 

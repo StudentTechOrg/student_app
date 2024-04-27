@@ -1,5 +1,5 @@
 {% extends 'contact/contact_base.html' %}
-
+{% load static %}
 {% block contact_content %}
 
 <div class="container mt-1">
@@ -8,7 +8,7 @@
             <h2 class="card-title">Contact Us</h2>
         </div>
         <div class="card-body">
-            <form method="post" action="{% url 'contact_us_submit' %}" enctype="multipart/form-data">
+            <form method="post" id="contactus">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -50,6 +50,56 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  function getCookies() {
+    var cookies = {};
+    var cookieString = document.cookie;
+    var cookieArray = cookieString.split('; ');
+
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i].split('=');
+        var cookieName = cookie[0];
+        var cookieValue = decodeURIComponent(cookie[1]);
+        cookies[cookieName] = cookieValue;
+    }
+
+    return cookies;
+}
+
+var csrfToken = getCookies()['csrftoken'];
+
+    $(document).ready(function() {
+        $('#contactus').submit(function(event) {
+            event.preventDefault();
+            
+            var formData = {
+                'name': $('#name').val(),
+                'email': $('#email').val(),
+                'subject': $('#subject').val(),
+                'message': $('#message').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'api/contactus/',
+                data: formData,
+                dataType: 'json',
+                headers: {
+                  'X-CSRFToken': csrfToken
+                },
+                success: function(response) {
+                    alert(response.message); 
+                    window.location.href=response.redirect_url
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('AJAX error:', xhr.responseText); 
+                }
+            });
+        });
+    });
+</script>
 
 
 {% endblock %}

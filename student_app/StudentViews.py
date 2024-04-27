@@ -8,8 +8,14 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactForm
 from datetime import date
 from django.conf import settings
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import reverse
+from .serializers import ContactMessageSerializer
 import datetime
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -125,28 +131,19 @@ def student_profile_save(request):
 
         return HttpResponseRedirect(reverse("student_profile"))
 
-        
+
+@api_view(['POST'])
+@login_required
 def contact_us_submit(request):
     if request.method != "POST":
-        return HttpResponseRedirect(reverse("contact_us"))
+        return Response({"error": "Method Not Allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     else:
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-            student = CustomUser.objects.get(id=request.user.id)
-      
-            contact_entry = ContactMessage.objects.create(name=name, email=email, subject=subject, message=message,  student_id= student.id)
-            contact_entry.save()
-
-            messages.success(request, "Your message has been sent successfully!")
-            return HttpResponseRedirect(reverse("contact_us"))  
+        serializer = ContactMessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(student_id=request.user.id)
+            return Response({"message": "Your message has been sent successfully!", "redirect_url": "/contact_us"}, status=status.HTTP_200_OK)
         else:
-            messages.error(request, "Failed to send message. Please check your input.")
-            return HttpResponseRedirect(reverse("contact_us"))  
-
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt

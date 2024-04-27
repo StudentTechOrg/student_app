@@ -13,9 +13,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import reverse
 from .serializers import ContactMessageSerializer
-import datetime
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
-
+from student_system.azure_storage import AzureMediaStorage
 
 
 
@@ -114,7 +114,7 @@ def student_profile_save(request):
             student.country = country
             student.city = city
             if profile_picture:
-                azure_storage = settings.AzureMediaStorage()  
+                azure_storage = AzureMediaStorage()  
                 profile_picture_name = profile_picture.name 
                 azure_storage.save(profile_picture_name, profile_picture) 
                 student.profile_pic = profile_picture

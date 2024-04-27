@@ -2,24 +2,11 @@
 
 import os
 from dotenv import load_dotenv
-from storages.backends.azure_storage import AzureStorage
-
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-class AzureMediaStorage(AzureStorage):
-    account_name = os.getenv('AZURE_ACCOUNT_NAME')
-    account_key = os.getenv('AZURE_ACCOUNT_KEY')
-    azure_container = 'media'
-    expiration_secs = None
-
-class AzureStaticStorage(AzureStorage):
-    account_name = os.getenv('AZURE_ACCOUNT_NAME')
-    account_key = os.getenv('AZURE_ACCOUNT_KEY')
-    azure_container = 'static'
-    expiration_secs = None
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%*tf6x$q07onvy^ge1zc7*$l+(44buv8vtd6wkx7)1e$oujm1b'
@@ -30,29 +17,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-MEDIA_URL="/media/"
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+# MEDIA_URL="/media/"
+# MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
-STATIC_URL="/static/"
-STATIC_ROOT=os.path.join(BASE_DIR,"static")
+# STATIC_URL="/static/"
+# STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
 
-# DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
-# STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
+DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
+STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
 
-# AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
-# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
-# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
-# STATIC_ROOT=os.path.join(BASE_DIR,"static")
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
+STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
-# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media/'
-# MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 
 INSTALLED_APPS = [

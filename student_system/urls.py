@@ -2,23 +2,25 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
 from student_app import views, StudentViews,AdminViews
 from student_system import settings
+from django.contrib import admin
+
 
 urlpatterns = [
     path('demo',views.showDemoPage),
     path('signup_student',views.signup_student,name="signup_student"),
     path('signup_admin',views.signup_admin,name="signup_admin"),
-    path('do_admin_signup',views.do_admin_signup,name="do_admin_signup"),
-    path('do_signup_student',views.do_signup_student,name="do_signup_student"),
     path('admin/', admin.site.urls),
     path('accounts/',include('django.contrib.auth.urls')),
     path('',views.ShowLoginPage,name="show_login"),
     path('get_user_details', views.GetUserDetails),
-    path('logout_user', views.logout_user,name="logout"),
-    path('doLogin',views.doLogin,name="do_login"),
-   
+
+
+    #rest api 
+    path('api/student/signup/', views.student_signup, name='student-signup'),
+    path('api/login/', views.login_check, name='login_check'),
+    path('api/logout/', views.logout_view, name='logout'),
 
     
 

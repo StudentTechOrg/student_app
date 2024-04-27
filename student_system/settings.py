@@ -2,13 +2,24 @@
 
 import os
 from dotenv import load_dotenv
+from storages.backends.azure_storage import AzureStorage
 
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+class AzureMediaStorage(AzureStorage):
+    account_name = os.getenv('AZURE_ACCOUNT_NAME')
+    account_key = os.getenv('AZURE_ACCOUNT_KEY')
+    azure_container = 'media'
+    expiration_secs = None
 
+class AzureStaticStorage(AzureStorage):
+    account_name = os.getenv('AZURE_ACCOUNT_NAME')
+    account_key = os.getenv('AZURE_ACCOUNT_KEY')
+    azure_container = 'static'
+    expiration_secs = None
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%*tf6x$q07onvy^ge1zc7*$l+(44buv8vtd6wkx7)1e$oujm1b'

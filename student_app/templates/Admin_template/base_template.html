@@ -43,7 +43,7 @@
       </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{% url 'admin_profile' %}">Edit Profile</a>
-          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+          <a class="dropdown-item" onclick="logout()">Logout</a>
         </div>
       </li>
     </ul>
@@ -72,7 +72,40 @@
 <script src="{% static 'plugins/sparklines/sparkline.js'%} "></script>
 <script src="{% static 'plugins/jqvmap/jquery.vmap.min.js'%} "></script>
 <script src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js'%} "></script>
-x  
+<script>
+  function getCookies() {
+    var cookies = {};
+    var cookieString = document.cookie;
+    var cookieArray = cookieString.split('; ');
+
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i].split('=');
+        var cookieName = cookie[0];
+        var cookieValue = decodeURIComponent(cookie[1]);
+        cookies[cookieName] = cookieValue;
+    }
+
+    return cookies;
+}
+
+var csrfToken = getCookies()['csrftoken'];
+
+function logout() {
+  $.ajax({
+    type: 'POST',
+    url: '/api/logout/', 
+    headers: {
+      'X-CSRFToken': csrfToken
+  },
+    success: function(response) {
+      window.location.href = "/";
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      console.error('Logout error:', xhr.responseJSON);
+    }
+  });
+}
+</script>
 {% block custom_js %}
 {% endblock custom_js %}
 

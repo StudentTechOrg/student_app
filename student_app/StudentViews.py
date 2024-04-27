@@ -7,7 +7,8 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactForm
 from datetime import date
-from student_system.azure_storage import AzureMediaStorage
+from django.conf import settings
+
 import datetime
 
 
@@ -107,7 +108,7 @@ def student_profile_save(request):
             student.country = country
             student.city = city
             if profile_picture:
-                azure_storage = AzureMediaStorage()  
+                azure_storage = settings.AzureMediaStorage()  
                 profile_picture_name = profile_picture.name 
                 azure_storage.save(profile_picture_name, profile_picture) 
                 student.profile_pic = profile_picture

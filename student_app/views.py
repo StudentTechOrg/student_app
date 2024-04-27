@@ -9,6 +9,13 @@ from student_app.EmailBackEnd import EmailBackEnd
 from student_app.models import CustomUser 
 from student_system import settings
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+
 
 def showDemoPage(request):
     return render(request,"demo.html")
@@ -16,38 +23,13 @@ def showDemoPage(request):
 def ShowLoginPage(request):
     return render(request,"login_page.html")
 
-def doLogin(request):
-    if request.method != "POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
-    else:
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        if not email or not password:
-            messages.error(request, "Please provide both email and password.")
-            return HttpResponseRedirect("/")
-        else:
-            user = EmailBackEnd.authenticate(request, email=email, password=password)
-            if user is not None:
-                login(request, user)
-                if user.user_type == "1":
-                    return HttpResponseRedirect('/admin_home')
-                else:
-                    return HttpResponseRedirect(reverse("student_home"))
-            else:
-                messages.error(request, "Invalid Login Details")
-                return HttpResponseRedirect("/") 
-            
+      
 
 def GetUserDetails(request):
     if request.user!=None:
         return HttpResponse("User : "+request.user.email+" usertype : "+str(request.user.user_type))
     else:
         return HttpResponse("Please Login First")
-
-def logout_user(request):
-    logout(request)
-    return HttpResponseRedirect("/")
 
 
 def Testurl(request):
@@ -59,44 +41,57 @@ def signup_admin(request):
 def signup_student(request):
     return render(request,"signup_student_page.html")
 
-
-
-def do_admin_signup(request):
-    username=request.POST.get("username")
-    email=request.POST.get("email")
-    password=request.POST.get("password")
-
-    try:
-        user=CustomUser.objects.create_user(username=username,password=password,email=email,user_type=1)
-        user.save()
-        messages.success(request,"Successfully Created Admin")
-        return HttpResponseRedirect(reverse("show_login"))
-    except:
-        messages.error(request,"Failed to Create Admin")
-        return HttpResponseRedirect(reverse("show_login"))
-
-
-def do_signup_student(request):
+@api_view(['POST'])
+def student_signup(request):
     if request.method == "POST":
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        if CustomUser.objects.filter(email=email).exists():
+            return Response({"error": "Email already exists. Please use a different email."}, status=status.HTTP_400_BAD_REQUEST)
+        elif CustomUser.objects.filter(username=username).exists():
+            return Response({"error": "Username already exists. Please choose a different username."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response({"error": "Invalid email format. Please provide a valid email."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            user = CustomUser.objects.create_user(username=username, password=password, email=email, last_name=last_name,
+                                             first_name=first_name, user_type=3)
+            user.save()
+            return Response({"message": "Successfully signed up."}, status=status.HTTP_201_CREATED)
+    else:
+        return Response({"error": "Method Not Allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+ 
+@api_view(['POST'])
+def login_check(request):
+    if request.method != "POST":
+        return Response({"error": "Method Not Allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    else:
         email = request.POST.get("email")
         password = request.POST.get("password")
-        
-        # Check if the email or username already exists
-        if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, "Email already exists. Please use a different email.")
-        elif CustomUser.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists. Please choose a different username.")
+
+        if not email or not password:
+            return Response({"error": "Please enter email and password."}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            # Create the user if both email and username don't exist
-            user = CustomUser.objects.create_user(username=username, password=password, email=email, last_name=last_name,
-                                                  first_name=first_name, user_type=3)
-            user.save()
-            messages.success(request, "Successfully added student.")
-            return HttpResponseRedirect(reverse("show_login"))
-        
-    else:
-        pass 
-    return render(request, "signup_student_page.html")
+            loginuser = EmailBackEnd.authenticate(request, email=email, password=password)
+            if loginuser is not None:
+                login(request, loginuser)
+                if loginuser.user_type == 1:
+                    return Response({"message": "Admin logged in successfully.", "redirect_url": "/admin_home"}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"message": "Student logged in successfully.", "redirect_url": "/student_home"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Invalid Login Details"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout_view(request):
+    logout(request)
+    return Response({"message": "Logged out successfully."}, status=status.HTTP_200_OK)
+

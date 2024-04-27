@@ -22,14 +22,14 @@
       <div class="top">
           <header>Login</header>
       </div>
-      <form action="/doLogin" method="post" id="demo-form">
+      <form method="post" id="login-demo-form">
         {% csrf_token %}
           <div class="input-box">
-              <input type="text" class="input-field" placeholder="Email" name="email">
+              <input type="text" class="input-field" id="email" placeholder="Email" name="email">
               <i class="bx bx-user"></i>
           </div>
           <div class="input-box">
-              <input type="password" class="input-field" placeholder="Password" name="password">
+              <input type="password" class="input-field" id="password" placeholder="Password" name="password">
               <i class="bx bx-lock-alt"></i>
           </div>
           <div class="input-box">
@@ -55,11 +55,38 @@
   </div>
 </div>
 <!-- jQuery -->
-<script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
-<script src="{% static "plugins/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-<script src="{% static "dist/js/adminlte.min.js" %}"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    $(document).ready(function() {
+        $('#login-demo-form').submit(function(event) {
+            event.preventDefault();
+            
+            var formData = {
+                'email': $('#email').val(),
+                'password': $('#password').val()
+            };
+    
+            $.ajax({
+                type: 'POST',
+                url: '/api/login/',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    window.location.href = response.redirect_url;
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    $('#error-message').text(xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+    
+</script>
+
 
 </body>
 </html>

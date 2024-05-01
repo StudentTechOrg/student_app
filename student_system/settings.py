@@ -11,11 +11,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%*tf6x$q07onvy^ge1zc7*$l+(44buv8vtd6wkx7)1e$oujm1b'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
+DEBUG = False
 
 # MEDIA_URL="/media/"
 # MEDIA_ROOT=os.path.join(BASE_DIR,"media")
@@ -31,8 +35,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'student_system.azure_storage.AzureMediaStorage'
 STATICFILES_STORAGE = 'student_system.azure_storage.AzureStaticStorage'
 
-AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+AZURE_ACCOUNT_NAME = 'c2087665'
+AZURE_ACCOUNT_KEY = 'FXyZTY5wiUX3/Np/ugZuGJqwhrlAYMzjmmuJk3EHQs8KrGqp7RHmpB0h6XnXMMLRPKkRnMQyt5pp+AStWHutmA=='
+
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
@@ -92,14 +97,21 @@ WSGI_APPLICATION = 'student_system.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #'ENGINE':'django.db.backends.mysql',
-        #'NAME':'student_system',
-        #'USER':'student_system',
-        #'PASSWORD':'student_management_password',
-        #'HOST':'localhost',
-        #'PORT':'3306'
+        #  'ENGINE': 'django.db.backends.sqlite3',
+        #  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'studentapp',
+        'USER':'studentapp',
+        'PASSWORD':'W_csT)z;',
+        'HOST':'studentapp-db.mysql.database.azure.com',
+        'PORT':'3306',
+        'OPTIONS': {
+        'charset': 'utf8mb4',  
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  
+        'sql_mode': 'traditional',  
+        },
+        'CONN_MAX_AGE': 600,  
+        'ATOMIC_REQUESTS': True,
     }
 }
 
